@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { useUser } from "@clerk/nextjs";
 import React, { use, useEffect, useState } from "react";
 import CourseBasicInfo from "../_components/CourseBasicInfo";
 import { HiOutlineClipboardDocumentCheck } from "react-icons/hi2";
+import { toast } from 'sonner';
 
 const FinishScreen = ({ params }) => {
   const { user } = useUser();
@@ -25,30 +26,36 @@ const FinishScreen = ({ params }) => {
     setCourse(data.result?.[0]);
   };
 
+  const handleCopyLink = async () => {
+    const link =
+      process.env.NEXT_PUBLIC_HOST_NAME +
+      "/course/" +
+      course?.courseId +
+      "/start";
+    await navigator.clipboard.writeText(link);
+    toast.success("Link copied!");
+  };
+
   return (
-    <div className="px-4 md:px-20 lg:px-44 my-7 ">
-      <h2 className="text-center font-bold text-3xl my-3 text-primary">
-        Congrats! Your Course is Ready!
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <h2 className="text-center font-bold text-2xl sm:text-3xl mb-6 text-primary">
+        🎉 Congrats! Your Course is Ready!
       </h2>
 
-      <CourseBasicInfo course={course} />
+      <CourseBasicInfo course={course} edit={false}/>
 
-      <h2 className="mt-6">Course URL</h2>
-      <h2 className="text-sm text-center text-gray-400 border p-2 rounded flex gap-5 items-center">
-        {process.env.NEXT_PUBLIC_HOST_NAME}/course/{course?.courseId}/start
-        <HiOutlineClipboardDocumentCheck
-          className="h-7 w-7 sm:w-4 sm:h-4 cursor-pointer"
-          onClick={async () => {
-            await navigator.clipboard.writeText(
-              process.env.NEXT_PUBLIC_HOST_NAME +
-                "/course/" +
-                course?.courseId + '/start'
-            );
-          }}
-        />
-      </h2>
-
-      
+      <div className="mt-8">
+        <h3 className="font-semibold text-lg mb-2">Course URL</h3>
+        <div className="flex items-center justify-between gap-3 text-sm sm:text-base text-gray-600 border rounded px-3 py-2">
+          <span>
+            {process.env.NEXT_PUBLIC_HOST_NAME}/course/{course?.courseId}/start
+          </span>
+          <HiOutlineClipboardDocumentCheck
+            className="h-6 w-6 sm:h-5 sm:w-5 text-primary cursor-pointer flex-shrink-0"
+            onClick={handleCopyLink}
+          />
+        </div>
+      </div>
     </div>
   );
 };

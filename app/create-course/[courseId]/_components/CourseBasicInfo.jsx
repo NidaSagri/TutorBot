@@ -44,7 +44,7 @@ const CourseBasicInfo = ({ course, GetCourse, edit=true }) => {
   };
 
   return (
-    <div className="p-10 border rounded-xl shadow-sm mt-5 ">
+    <div className="p-6 border rounded-xl shadow-sm mt-5 ">
       <div className="grid gap-5 grid-cols-1 md:grid-cols-2 ">
         <div>
           <h2 className="font-bold text-3xl">
@@ -71,9 +71,9 @@ const CourseBasicInfo = ({ course, GetCourse, edit=true }) => {
                   : "/course.png"
               }
               alt="course"
-              height={300}
-              width={300}
-              className="w-full rounded-xl h-[200px] md:h-[250px] object-cover cursor-pointer "
+              width={200}
+              height={200}
+              className="w-full h-[200px] md:h-[250px] object-cover rounded-xl cursor-pointer"
             />
           </label>
          {

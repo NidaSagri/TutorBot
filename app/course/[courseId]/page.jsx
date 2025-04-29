@@ -1,4 +1,5 @@
 'use client'
+import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 import ChapterList from "@/app/create-course/[courseId]/_components/ChapterList";
 import CourseBasicInfo from "@/app/create-course/[courseId]/_components/CourseBasicInfo";
@@ -30,13 +31,14 @@ const GetCourse = async ()=>{
   }
 
   return (
-    <div>
+    <div >
         <Header/>
-        <div className="px-4 md:px-20 lg:px-44">
+        <div className="my-8 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
             <CourseBasicInfo course={course} edit={false}/>
             <CourseDetails course={course}/>
             <ChapterList course={course} edit={false}/>
         </div>
+        <Footer/>
     </div>
   );
 };

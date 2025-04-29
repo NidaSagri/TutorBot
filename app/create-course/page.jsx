@@ -122,7 +122,7 @@ const CreateCourse = () => {
 
               {index !== StepperOptions.length - 1 && (
                 <div
-                  className={`h-1 w-10 sm:w-12 md:w-24 lg:w-40 rounded-full bg-gray-300 ${
+                  className={`h-1 w-7 sm:w-12 md:w-24 lg:w-40 rounded-full bg-gray-300 ${
                     activeIndex - 1 >= index && "bg-primary"
                   }`}
                 ></div>
@@ -143,7 +143,7 @@ const CreateCourse = () => {
         )}
 
         {/* next and prev buttons */}
-        <div className="flex justify-between m-10">
+        <div className="flex justify-between my-10">
           <Button
             disabled={activeIndex === 0}
             onClick={() => setActiveIndex(activeIndex - 1)}
