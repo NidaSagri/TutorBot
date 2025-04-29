@@ -14,6 +14,8 @@ import { GenerateCourseLayout_AI } from "@/configs/AiModel";
 import LoadingDialog from "./_components/LoadingDialog";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { toast } from 'sonner';
+
 
 const CreateCourse = () => {
   const StepperOptions = [
@@ -68,36 +70,93 @@ const CreateCourse = () => {
     return false;
   };
 
+  // const GenerateCourseLayout = async () => {
+  //   setLoading(true);
+
+  //   const BASIC_PROMPT =
+  //     "generate a course tutorial on the following details with fields as Course Name, Description, Chapter Name, About, Duration:";
+  //   const USER_INPUT_PROMPT = `Category: ${userCourseInput?.category}, Topic: ${userCourseInput?.topic}, Level: ${userCourseInput?.level}, Duration: ${userCourseInput?.duration}, NofChapters: ${userCourseInput?.noOfChapter}, in JSON format`;
+  //   const FINAL_PROMPT = BASIC_PROMPT + USER_INPUT_PROMPT;
+
+  //   const result = await GenerateCourseLayout_AI.sendMessage(FINAL_PROMPT);
+  //   const courseLayout = JSON.parse(result.response?.text());
+
+  //   const userData = {
+  //     email: user?.primaryEmailAddress?.emailAddress,
+  //     name: user?.fullName,
+  //     image: user?.imageUrl,
+  //   };
+
+  //   const res = await fetch("/api/save-course", {
+  //     method: "POST",
+  //     body: JSON.stringify({ courseLayout, userCourseInput, userData }),
+  //   });
+
+  //   const data = await res.json();
+  //   setLoading(false);
+
+  //   if (data?.id) {
+  //     router.replace("/create-course/" + data.id);
+  //   }
+  // };
   const GenerateCourseLayout = async () => {
     setLoading(true);
-
+  
     const BASIC_PROMPT =
       "generate a course tutorial on the following details with fields as Course Name, Description, Chapter Name, About, Duration:";
     const USER_INPUT_PROMPT = `Category: ${userCourseInput?.category}, Topic: ${userCourseInput?.topic}, Level: ${userCourseInput?.level}, Duration: ${userCourseInput?.duration}, NofChapters: ${userCourseInput?.noOfChapter}, in JSON format`;
     const FINAL_PROMPT = BASIC_PROMPT + USER_INPUT_PROMPT;
-
-    const result = await GenerateCourseLayout_AI.sendMessage(FINAL_PROMPT);
-    const courseLayout = JSON.parse(result.response?.text());
-
-    const userData = {
-      email: user?.primaryEmailAddress?.emailAddress,
-      name: user?.fullName,
-      image: user?.imageUrl,
-    };
-
-    const res = await fetch("/api/save-course", {
-      method: "POST",
-      body: JSON.stringify({ courseLayout, userCourseInput, userData }),
-    });
-
-    const data = await res.json();
-    setLoading(false);
-
-    if (data?.id) {
-      router.replace("/create-course/" + data.id);
+  
+    try {
+      const result = await GenerateCourseLayout_AI.sendMessage(FINAL_PROMPT);
+      const content = result.response?.text();
+  
+      if (!content) {
+        toast.warning("No course content was generated. Try a different topic.");
+        setLoading(false);
+        return;
+      }
+  
+      let courseLayout;
+      try {
+        courseLayout = JSON.parse(content);
+      } catch (err) {
+        toast.error("Invalid format from AI. Use a more specific topic.");
+        setLoading(false);
+        return;
+      }
+  
+      if (!courseLayout?.CourseName || !courseLayout?.Chapters?.length) {
+        toast.error("Incomplete course layout. Try again with a better topic.");
+        setLoading(false);
+        return;
+      }
+  
+      const userData = {
+        email: user?.primaryEmailAddress?.emailAddress,
+        name: user?.fullName,
+        image: user?.imageUrl,
+      };
+  
+      const res = await fetch("/api/save-course", {
+        method: "POST",
+        body: JSON.stringify({ courseLayout, userCourseInput, userData }),
+      });
+  
+      const data = await res.json();
+      setLoading(false);
+  
+      if (data?.id) {
+        toast.success("Course layout created successfully!");
+        router.replace("/create-course/" + data.id);
+      }
+    } catch (error) {
+      console.error("Course generation failed:", error);
+      toast.error("Something went wrong. Please try again.");
+      setLoading(false);
     }
   };
-
+  
   return (
     <div>
       <div className="flex flex-col justify-center items-center mt-10">

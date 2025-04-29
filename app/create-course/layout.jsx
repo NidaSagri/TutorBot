@@ -13,7 +13,7 @@ const CreateCourseLayout = ({children}) => {
     <div className="flex flex-col min-h-screen"> 
       <UserInputContext.Provider value={{userCourseInput, setUserCourseInput}}>
       <>
-      <Header/>
+      <Header dashboardBtn={true}/>
       {children}
       <Footer/>
       </>
