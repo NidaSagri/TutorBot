@@ -88,48 +88,27 @@ const CourseLayout = ({ params }) => {
   };
 
   return (
-    // <div className="mt-10 w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
-    //   <h2 className="font-bold text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-    //     Course Layout
-    //   </h2>
-
-    //   <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
-    //     <LoadingDialog loading={loading} />
-    //     <CourseBasicInfo course={course} edit={true} />
-    //     <CourseDetails course={course} />
-    //     <ChapterList course={course} edit={false} />
-    //     <Button
-    //       className="my-10 text-lg sm:text-xl py-4 sm:py-6 px-6 sm:px-8"
-    //       onClick={GenerateChapterContent}
-    //     >
-    //       Generate Course Content
-    //     </Button>
-    //   </div>
-    // </div>
-
     <div className="mt-10 w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
-  <h2 className="font-bold text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-6">
-    Course Layout
-  </h2>
+      <h2 className="font-bold text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-6">
+        Course Layout
+      </h2>
 
-  <div className="w-full max-w-6xl mx-auto space-y-8">
-    <LoadingDialog loading={loading} />
-    <CourseBasicInfo course={course} edit={true} />
-    <CourseDetails course={course} />
-    <ChapterList course={course} edit={false} />
-    <div className="flex justify-center">
-      <Button
-        className="my-6 sm:my-10 text-base sm:text-xl py-3 sm:py-6 px-6 sm:px-8"
-        onClick={GenerateChapterContent}
-      >
-        Generate Course Content
-      </Button>
+      <div className="w-full max-w-6xl mx-auto space-y-8">
+        <LoadingDialog loading={loading} />
+        <CourseBasicInfo course={course} edit={true} />
+        <CourseDetails course={course} />
+        <ChapterList course={course} edit={false} />
+        <div className="flex justify-center">
+          <Button
+            className="my-6 sm:my-10 text-base sm:text-xl py-3 sm:py-6 px-6 sm:px-8"
+            onClick={GenerateChapterContent}
+          >
+            Generate Course Content
+          </Button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
   );
 };
 
 export default CourseLayout;
-
