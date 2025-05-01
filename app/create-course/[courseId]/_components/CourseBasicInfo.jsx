@@ -35,7 +35,7 @@ const CourseBasicInfo = ({ course, GetCourse, edit=true }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: course.id,
+        id: course.courseId,
         downloadUrl,
       }),
     });

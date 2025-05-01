@@ -70,35 +70,6 @@ const CreateCourse = () => {
     return false;
   };
 
-  // const GenerateCourseLayout = async () => {
-  //   setLoading(true);
-
-  //   const BASIC_PROMPT =
-  //     "generate a course tutorial on the following details with fields as Course Name, Description, Chapter Name, About, Duration:";
-  //   const USER_INPUT_PROMPT = `Category: ${userCourseInput?.category}, Topic: ${userCourseInput?.topic}, Level: ${userCourseInput?.level}, Duration: ${userCourseInput?.duration}, NofChapters: ${userCourseInput?.noOfChapter}, in JSON format`;
-  //   const FINAL_PROMPT = BASIC_PROMPT + USER_INPUT_PROMPT;
-
-  //   const result = await GenerateCourseLayout_AI.sendMessage(FINAL_PROMPT);
-  //   const courseLayout = JSON.parse(result.response?.text());
-
-  //   const userData = {
-  //     email: user?.primaryEmailAddress?.emailAddress,
-  //     name: user?.fullName,
-  //     image: user?.imageUrl,
-  //   };
-
-  //   const res = await fetch("/api/save-course", {
-  //     method: "POST",
-  //     body: JSON.stringify({ courseLayout, userCourseInput, userData }),
-  //   });
-
-  //   const data = await res.json();
-  //   setLoading(false);
-
-  //   if (data?.id) {
-  //     router.replace("/create-course/" + data.id);
-  //   }
-  // };
   const GenerateCourseLayout = async () => {
     setLoading(true);
   

@@ -36,7 +36,7 @@ const GetCourse = async ()=>{
         <div className="my-8 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36">
             <CourseBasicInfo course={course} edit={false}/>
             <CourseDetails course={course}/>
-            <ChapterList course={course} edit={false}/>
+            <ChapterList course={course} edit={true}/>
         </div>
         <Footer/>
     </div>

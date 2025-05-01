@@ -19,7 +19,7 @@ const ChapterList = ({ course, GetCourse, edit = true }) => {
               <div className="flex-1">
                 <h2 className="font-medium text-base sm:text-lg flex items-center flex-wrap gap-1">
                   {chapter.ChapterName}
-                  {edit && (
+                  {!edit && (
                     <EditChapters index={index} course={course} GetCourse={GetCourse} />
                   )}
                 </h2>
